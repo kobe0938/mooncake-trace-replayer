@@ -1,0 +1,61 @@
+# Mooncake Trace Replay
+
+A script to replay Mooncake traces against vLLM servers for performance testing and benchmarking.
+
+## Dependencies
+
+- vLLM (installed via pip)
+- Required Python packages:
+  ```bash
+  pip install vllm transformers aiohttp
+  ```
+
+## Quick Start
+
+### 1. Start vLLM Server
+
+```bash
+# Run from outside the vLLM source directory to avoid import conflicts
+cd /home/ie-user
+source kobe/vllm/.venv/bin/activate
+vllm serve NousResearch/Llama-3.2-1B
+```
+
+### 2. Run Trace Replay
+
+```bash
+cd /path/to/vllm/source
+bash run_mooncake_replay.sh
+```
+
+## Configuration
+
+Modify these environment variables in `run_mooncake_replay.sh` or set them before running:
+
+```bash
+MODEL="NousResearch/Llama-3.2-1B"    # Model to test
+HOST="localhost"                      # Server host
+PORT="8000"                          # Server port
+BACKEND="vllm"                       # Backend type
+DURATION="60"                        # Test duration (seconds)
+TIME_SCALE="1.0"                     # Speed up/slow down replay
+PRESERVE_TIMING="true"               # Keep original request timing
+```
+
+## Example Output
+
+```
+Successful requests: 313
+Failed requests: 0
+Total duration: 60.48s
+Mean TTFT: 2187.98ms
+Mean TPOT: 26.59ms
+```
+
+Results are saved to `mooncake_replay_results.json` with detailed metrics.
+
+## Notes
+
+- The script preserves original request timing for realistic load testing
+- Multiple requests run concurrently to simulate real traffic patterns
+- Ensure vLLM server is running and accessible before starting replay
