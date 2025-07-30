@@ -1,6 +1,6 @@
 # Mooncake Trace Replay
 
-A script to replay Mooncake traces against vLLM servers for performance testing and benchmarking.
+A script to replay Mooncake traces (https://github.com/kvcache-ai/Mooncake/blob/main/mooncake_trace.jsonl) against vLLM servers for performance testing and benchmarking.
 
 ## Dependencies
 
